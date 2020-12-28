@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestNewFieldRequiredError(t *testing.T) {
+func TestNewRequiredValueError(t *testing.T) {
 	type args struct {
 		key string
 	}
@@ -26,14 +26,14 @@ func TestNewFieldRequiredError(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			rq := require.New(t)
 
-			err := NewFieldRequiredError(tt.args.key)
+			err := NewRequiredValueError(tt.args.key)
 			rq.NotNil(err)
-			rq.Equal(err.Error(), fmt.Sprintf("field '%s' is required", tt.args.key))
+			rq.Equal(err.Error(), fmt.Sprintf("'%s' is required", tt.args.key))
 		})
 	}
 }
 
-func TestNewFieldInvalidError(t *testing.T) {
+func TestNewInvalidValueError(t *testing.T) {
 	type args struct {
 		key   string
 		value interface{}
@@ -57,12 +57,12 @@ func TestNewFieldInvalidError(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			rq := require.New(t)
 
-			err := NewFieldInvalidError(tt.args.key, tt.args.value, tt.args.rule)
+			err := NewInvalidValueError(tt.args.key, tt.args.value, tt.args.rule)
 			rq.NotNil(err)
 			rq.Equal(
 				err.Error(),
 				fmt.Sprintf(
-					"fiild '%s' has invalid value '%v' - %s",
+					"'%s' has invalid value '%v' - %s",
 					tt.args.key,
 					tt.args.value,
 					tt.args.rule,
