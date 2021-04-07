@@ -8,14 +8,14 @@ import (
 )
 
 var (
-	nonNegativeValueError = errors.New("must be non-negative")
-	nonEmptyValueError    = errors.New("must be non-empty")
+	ErrNegativeValue = errors.New("must be non-negative")
+	ErrEmptyValue    = errors.New("must be non-empty")
 )
 
 // Validate validates a SortBy and returns an error if validation is failed
 func (sb SortBy) Validate() error {
 	if sb == "" {
-		return nonEmptyValueError
+		return ErrEmptyValue
 	}
 
 	return nil
@@ -47,10 +47,10 @@ func (s Sort) Validate() error {
 // Validate validates a Pageable and returns an error if validation is failed
 func (p Pageable) Validate() error {
 	if p.Limit < 0 {
-		return sdkerrors.NewInvalidValueError("Limit", nonNegativeValueError)
+		return sdkerrors.NewInvalidValueError("Limit", ErrNegativeValue)
 	}
 	if p.Offset < 0 {
-		return sdkerrors.NewInvalidValueError("Offset", nonNegativeValueError)
+		return sdkerrors.NewInvalidValueError("Offset", ErrNegativeValue)
 	}
 	if err := p.Sort.Validate(); err != nil {
 		return sdkerrors.NewInvalidValueError("Sort", err)

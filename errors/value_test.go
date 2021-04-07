@@ -29,13 +29,13 @@ func TestNewRequiredValueError(t *testing.T) {
 
 			err := NewRequiredValueError(tt.args.key)
 			rq.NotNil(err)
-			rq.True(errors.Is(err, RequiredValueError))
+			rq.True(errors.Is(err, ErrRequiredValue))
 			rq.EqualError(
 				err,
 				fmt.Errorf(
 					"'%s' has invalid value: %w",
 					tt.args.key,
-					RequiredValueError,
+					ErrRequiredValue,
 				).Error(),
 			)
 		})
