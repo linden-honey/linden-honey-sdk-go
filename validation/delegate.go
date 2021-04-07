@@ -8,7 +8,7 @@ import (
 type Delegate struct {
 }
 
-// NewDelegate returns a pointer to the new instance of Delegate
+// NewDelegate returns a pointer to the new instance of Delegate or an error
 func NewDelegate() (*Delegate, error) {
 	return &Delegate{}, nil
 }
