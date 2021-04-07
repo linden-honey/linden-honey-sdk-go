@@ -16,14 +16,14 @@ func TestValidatorStub_Validate(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "with error",
+			name: "ok",
 			fields: fields{
 				Err: errors.New("some error"),
 			},
 			wantErr: true,
 		},
 		{
-			name: "without error",
+			name: "validation failed",
 			fields: fields{
 				Err: nil,
 			},
