@@ -1,13 +1,20 @@
 package errors
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	RequiredValueError = errors.New("value is required")
+)
+
+// NewInvalidValueError returns error about invalid value
+func NewInvalidValueError(key string, err error) error {
+	return fmt.Errorf("'%s' has invalid value: %w", key, err)
+}
 
 // NewRequiredValueError returns error about missing required value
 func NewRequiredValueError(key string) error {
-	return fmt.Errorf("'%s' is required", key)
-}
-
-// NewInvalidValueError returns error about invalid value
-func NewInvalidValueError(key string, value interface{}, rule string) error {
-	return fmt.Errorf("'%s' has invalid value '%v' - %s", key, value, rule)
+	return NewInvalidValueError(key, RequiredValueError)
 }

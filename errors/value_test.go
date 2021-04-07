@@ -1,6 +1,7 @@
 package errors
 
 import (
+	"errors"
 	"fmt"
 	"testing"
 
@@ -28,16 +29,23 @@ func TestNewRequiredValueError(t *testing.T) {
 
 			err := NewRequiredValueError(tt.args.key)
 			rq.NotNil(err)
-			rq.Equal(err.Error(), fmt.Sprintf("'%s' is required", tt.args.key))
+			rq.True(errors.Is(err, RequiredValueError))
+			rq.EqualError(
+				err,
+				fmt.Errorf(
+					"'%s' has invalid value: %w",
+					tt.args.key,
+					RequiredValueError,
+				).Error(),
+			)
 		})
 	}
 }
 
 func TestNewInvalidValueError(t *testing.T) {
 	type args struct {
-		key   string
-		value interface{}
-		rule  string
+		key string
+		err error
 	}
 	tests := []struct {
 		name    string
@@ -47,9 +55,8 @@ func TestNewInvalidValueError(t *testing.T) {
 		{
 			name: "ok",
 			args: args{
-				key:   "Title",
-				value: "some title",
-				rule:  "title should be in camelcase",
+				key: "Title",
+				err: errors.New("title should be in camelcase"),
 			},
 		},
 	}
@@ -57,16 +64,15 @@ func TestNewInvalidValueError(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			rq := require.New(t)
 
-			err := NewInvalidValueError(tt.args.key, tt.args.value, tt.args.rule)
+			err := NewInvalidValueError(tt.args.key, tt.args.err)
 			rq.NotNil(err)
-			rq.Equal(
-				err.Error(),
-				fmt.Sprintf(
-					"'%s' has invalid value '%v' - %s",
+			rq.EqualError(
+				err,
+				fmt.Errorf(
+					"'%s' has invalid value: %w",
 					tt.args.key,
-					tt.args.value,
-					tt.args.rule,
-				),
+					tt.args.err,
+				).Error(),
 			)
 		})
 	}

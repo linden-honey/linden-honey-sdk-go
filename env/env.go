@@ -1,8 +1,9 @@
 package env
 
 import (
-	"fmt"
 	"os"
+
+	"github.com/linden-honey/linden-honey-sdk-go/errors"
 )
 
 // GetEnv returns the value of the environment variable named by the key or default value if missing
@@ -28,5 +29,5 @@ func GetRequiredEnv(key string) string {
 		return env
 	}
 
-	panic(fmt.Sprintf("key '%s' is required", key))
+	panic(errors.NewRequiredValueError(key).Error())
 }
