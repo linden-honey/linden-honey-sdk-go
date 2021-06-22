@@ -23,8 +23,8 @@ func (sb SortBy) Validate() error {
 
 // Validate validates a SortOrder and returns an error if validation is failed
 func (so SortOrder) Validate() error {
-	if so < ASC || so > DESC {
-		return fmt.Errorf("should have one of the following values %v, %v, %v", ASC, NO, DESC)
+	if so < Ascending || so > Descending {
+		return fmt.Errorf("should have one of the following values %v, %v, %v", Ascending, Normal, Descending)
 	}
 
 	return nil

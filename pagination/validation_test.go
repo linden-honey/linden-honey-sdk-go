@@ -44,7 +44,7 @@ func TestSortOrder_Validate(t *testing.T) {
 	}{
 		{
 			name: "ok",
-			so:   ASC,
+			so:   Ascending,
 		},
 		{
 			name:    "err  invalid value",
@@ -75,15 +75,15 @@ func TestSort_Validate(t *testing.T) {
 		{
 			name: "ok",
 			sort: Sort{
-				"id":    ASC,
-				"title": ASC,
+				"id":    Ascending,
+				"title": Ascending,
 			},
 		},
 		{
 			name: "err  invalid sort by",
 			sort: Sort{
-				"":      ASC,
-				"title": ASC,
+				"":      Ascending,
+				"title": Ascending,
 			},
 			wantErr: true,
 		},
@@ -91,7 +91,7 @@ func TestSort_Validate(t *testing.T) {
 			name: "err  invalid sort order",
 			sort: Sort{
 				"id":    2,
-				"title": ASC,
+				"title": Ascending,
 			},
 			wantErr: true,
 		},

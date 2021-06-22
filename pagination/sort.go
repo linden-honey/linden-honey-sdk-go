@@ -7,9 +7,9 @@ type SortBy string
 type SortOrder int
 
 const (
-	ASC SortOrder = iota - 1
-	NO
-	DESC
+	Ascending SortOrder = iota - 1
+	Normal
+	Descending
 )
 
 // Sort represents a mapping SortBy -> SortOrder
