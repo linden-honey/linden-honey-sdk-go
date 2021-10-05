@@ -4,34 +4,23 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/gorilla/mux"
-
-	kitendpint "github.com/go-kit/kit/endpoint"
+	"github.com/go-kit/kit/endpoint"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/transport"
 	httptransport "github.com/go-kit/kit/transport/http"
 )
 
-func NewHTTPHandler(path string, endpoint kitendpint.Endpoint, logger log.Logger) http.Handler {
+func NewHTTPHandler(endpoint endpoint.Endpoint, logger log.Logger) http.Handler {
 	opts := []httptransport.ServerOption{
 		httptransport.ServerErrorHandler(transport.NewLogErrorHandler(logger)),
 	}
 
-	router := mux.
-		NewRouter().
-		StrictSlash(true)
-
-	router.
-		Path(path).
-		Methods(http.MethodGet).
-		Handler(httptransport.NewServer(
-			endpoint,
-			decodeRequest,
-			encodeResponse,
-			opts...,
-		))
-
-	return router
+	return httptransport.NewServer(
+		endpoint,
+		decodeRequest,
+		encodeResponse,
+		opts...,
+	)
 }
 
 func decodeRequest(_ context.Context, _ *http.Request) (interface{}, error) {
