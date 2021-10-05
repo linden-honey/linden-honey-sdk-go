@@ -5,9 +5,9 @@ import (
 	"net/http"
 
 	"github.com/go-kit/kit/endpoint"
-	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/transport"
 	httptransport "github.com/go-kit/kit/transport/http"
+	"github.com/go-kit/log"
 )
 
 func NewHTTPHandler(endpoint endpoint.Endpoint, logger log.Logger) http.Handler {
