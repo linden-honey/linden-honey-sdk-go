@@ -15,7 +15,7 @@ func NewPageable(opts ...PageableOption) (*Pageable, error) {
 	p := &Pageable{
 		Limit:  0,
 		Offset: 0,
-		Sort:   make(map[SortBy]SortOrder),
+		Sort:   make(Sort),
 	}
 
 	for _, opt := range opts {
