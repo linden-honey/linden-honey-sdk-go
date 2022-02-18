@@ -1,6 +1,6 @@
 # Linden Honey SDK
 
-> Common code base for application development
+> Common codebase for application development
 
 [![build](https://img.shields.io/github/workflow/status/linden-honey/linden-honey-sdk-go/CI)](https://github.com/linden-honey/linden-honey-sdk-go/actions?query=workflow%3ACI)
 [![version](https://img.shields.io/github/go-mod/go-version/linden-honey/linden-honey-sdk-go)](https://go.dev/)
