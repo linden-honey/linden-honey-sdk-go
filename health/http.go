@@ -2,6 +2,7 @@ package health
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/go-kit/kit/endpoint"
@@ -31,7 +32,7 @@ func encodeResponse(ctx context.Context, w http.ResponseWriter, response interfa
 	res := response.(Response)
 	httptransport.SetContentType("application/json")(ctx, w)
 	if err := httptransport.EncodeJSONResponse(ctx, w, res); err != nil {
-		return err
+		return fmt.Errorf("failed to encode respose: %w", err)
 	}
 
 	return nil
