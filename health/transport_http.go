@@ -18,17 +18,17 @@ func NewHTTPHandler(endpoint endpoint.Endpoint, logger log.Logger) http.Handler 
 
 	return httptransport.NewServer(
 		endpoint,
-		decodeRequest,
-		encodeResponse,
+		decodeHTTPRequest,
+		encodeHTTPResponse,
 		opts...,
 	)
 }
 
-func decodeRequest(_ context.Context, _ *http.Request) (interface{}, error) {
+func decodeHTTPRequest(_ context.Context, _ *http.Request) (interface{}, error) {
 	return Request{}, nil
 }
 
-func encodeResponse(ctx context.Context, w http.ResponseWriter, response interface{}) error {
+func encodeHTTPResponse(ctx context.Context, w http.ResponseWriter, response interface{}) error {
 	res := response.(Response)
 	httptransport.SetContentType("application/json")(ctx, w)
 	if err := httptransport.EncodeJSONResponse(ctx, w, res); err != nil {
