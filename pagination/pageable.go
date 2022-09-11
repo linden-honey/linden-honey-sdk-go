@@ -10,7 +10,7 @@ type Pageable struct {
 // PageableOption represents configuration option to construct Pageable value
 type PageableOption func(p *Pageable)
 
-// NewPageable returns a pointer to the new instance of Pageable or an error
+// NewPageable returns a pointer to a new instance of Pageable or an error
 func NewPageable(opts ...PageableOption) (*Pageable, error) {
 	p := &Pageable{
 		Limit:  0,

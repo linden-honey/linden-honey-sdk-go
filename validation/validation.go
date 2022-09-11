@@ -1,6 +1,6 @@
 package validation
 
-// Validator represents the validator interface
+// Validator represents an object that can be validated
 type Validator interface {
 	Validate() error
 }
