@@ -1,21 +1,15 @@
 package pagination
 
 import (
-	"errors"
 	"fmt"
 
 	sdkerrors "github.com/linden-honey/linden-honey-sdk-go/errors"
 )
 
-var (
-	ErrNegativeValue = errors.New("must be non-negative")
-	ErrEmptyValue    = errors.New("must be non-empty")
-)
-
 // Validate validates a SortBy and returns an error if validation is failed
 func (sb SortBy) Validate() error {
 	if sb == "" {
-		return ErrEmptyValue
+		return sdkerrors.ErrEmptyValue
 	}
 
 	return nil
@@ -47,10 +41,10 @@ func (s Sort) Validate() error {
 // Validate validates a Pageable and returns an error if validation is failed
 func (p Pageable) Validate() error {
 	if p.Limit < 0 {
-		return sdkerrors.NewInvalidValueError("Limit", ErrNegativeValue)
+		return sdkerrors.NewInvalidValueError("Limit", sdkerrors.ErrNegativeValue)
 	}
 	if p.Offset < 0 {
-		return sdkerrors.NewInvalidValueError("Offset", ErrNegativeValue)
+		return sdkerrors.NewInvalidValueError("Offset", sdkerrors.ErrNegativeValue)
 	}
 	if err := p.Sort.Validate(); err != nil {
 		return sdkerrors.NewInvalidValueError("Sort", err)

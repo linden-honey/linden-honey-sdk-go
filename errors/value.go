@@ -1,7 +1,13 @@
 package errors
 
 import (
+	"errors"
 	"fmt"
+)
+
+var (
+	ErrEmptyValue    = errors.New("must be non-empty")
+	ErrNegativeValue = errors.New("must be non-negative")
 )
 
 // NewRequiredValueError returns an error about missing required value
