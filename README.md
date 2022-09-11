@@ -10,7 +10,6 @@
 ## Technologies
 
 - [Golang](https://go.dev/)
-- [Go kit](https://gokit.io/)
 
 ## Getting started
 
