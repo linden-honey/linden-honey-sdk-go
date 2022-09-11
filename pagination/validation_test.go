@@ -155,3 +155,52 @@ func TestPageable_Validate(t *testing.T) {
 		})
 	}
 }
+
+func TestChunk_Validate(t *testing.T) {
+	type fields struct {
+		Data     []string
+		Pageable Pageable
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		wantErr bool
+	}{
+		{
+			name: "ok",
+			fields: fields{
+				Data: []string{
+					"one",
+					"two",
+				},
+				Pageable: Pageable{},
+			},
+		},
+		{
+			name: "err  invalid pageable",
+			fields: fields{
+				Data: []string{
+					"one",
+					"two",
+				},
+				Pageable: Pageable{
+					Limit:  -1,
+					Offset: 0,
+					Sort:   make(Sort),
+				},
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := Chunk[string]{
+				Data:     tt.fields.Data,
+				Pageable: tt.fields.Pageable,
+			}
+			if err := c.Validate(); (err != nil) != tt.wantErr {
+				t.Errorf("Chunk[T].Validate() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}

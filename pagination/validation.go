@@ -52,3 +52,12 @@ func (p Pageable) Validate() error {
 
 	return nil
 }
+
+// Validate validates a Chunk[T] and returns an error if validation is failed
+func (c Chunk[T]) Validate() error {
+	if err := c.Pageable.Validate(); err != nil {
+		return err
+	}
+
+	return nil
+}
