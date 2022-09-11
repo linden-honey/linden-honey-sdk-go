@@ -2,8 +2,6 @@ package pagination
 
 import (
 	"testing"
-
-	"github.com/stretchr/testify/require"
 )
 
 func TestSortBy_Validate(t *testing.T) {
@@ -24,13 +22,8 @@ func TestSortBy_Validate(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			rq := require.New(t)
-
-			err := tt.sb.Validate()
-			if tt.wantErr {
-				rq.Error(err)
-			} else {
-				rq.NoError(err)
+			if err := tt.sb.Validate(); (err != nil) != tt.wantErr {
+				t.Errorf("SortBy.Validate() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
@@ -54,13 +47,8 @@ func TestSortOrder_Validate(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			rq := require.New(t)
-
-			err := tt.so.Validate()
-			if tt.wantErr {
-				rq.Error(err)
-			} else {
-				rq.NoError(err)
+			if err := tt.so.Validate(); (err != nil) != tt.wantErr {
+				t.Errorf("SortOrder.Validate() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
@@ -69,19 +57,19 @@ func TestSortOrder_Validate(t *testing.T) {
 func TestSort_Validate(t *testing.T) {
 	tests := []struct {
 		name    string
-		sort    Sort
+		s       Sort
 		wantErr bool
 	}{
 		{
 			name: "ok",
-			sort: Sort{
+			s: Sort{
 				"id":    Ascending,
 				"title": Ascending,
 			},
 		},
 		{
 			name: "err  invalid sort by",
-			sort: Sort{
+			s: Sort{
 				"":      Ascending,
 				"title": Ascending,
 			},
@@ -89,7 +77,7 @@ func TestSort_Validate(t *testing.T) {
 		},
 		{
 			name: "err  invalid sort order",
-			sort: Sort{
+			s: Sort{
 				"id":    2,
 				"title": Ascending,
 			},
@@ -98,13 +86,8 @@ func TestSort_Validate(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			rq := require.New(t)
-
-			err := tt.sort.Validate()
-			if tt.wantErr {
-				rq.Error(err)
-			} else {
-				rq.NoError(err)
+			if err := tt.s.Validate(); (err != nil) != tt.wantErr {
+				t.Errorf("Sort.Validate() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
@@ -161,19 +144,13 @@ func TestPageable_Validate(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			rq := require.New(t)
-
 			p := Pageable{
 				Limit:  tt.fields.Limit,
 				Offset: tt.fields.Offset,
 				Sort:   tt.fields.Sort,
 			}
-
-			err := p.Validate()
-			if tt.wantErr {
-				rq.Error(err)
-			} else {
-				rq.NoError(err)
+			if err := p.Validate(); (err != nil) != tt.wantErr {
+				t.Errorf("Pageable.Validate() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

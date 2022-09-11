@@ -1,9 +1,8 @@
 package pagination
 
 import (
+	"reflect"
 	"testing"
-
-	"github.com/stretchr/testify/require"
 )
 
 func TestNewPageable(t *testing.T) {
@@ -69,16 +68,13 @@ func TestNewPageable(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			rq := require.New(t)
-
 			got, err := NewPageable(tt.args.opts...)
-
-			if tt.wantErr {
-				rq.Error(err)
-				rq.Nil(got)
-			} else {
-				rq.NoError(err)
-				rq.Equal(tt.want, got)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("NewPageable() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewPageable() = %v, want %v", got, tt.want)
 			}
 		})
 	}
