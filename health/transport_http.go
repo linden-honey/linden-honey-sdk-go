@@ -1,39 +1,43 @@
 package health
 
 import (
-	"context"
-	"fmt"
 	"net/http"
 
-	"github.com/go-kit/kit/endpoint"
-	"github.com/go-kit/kit/transport"
-	httptransport "github.com/go-kit/kit/transport/http"
-	"github.com/go-kit/log"
+	sdkhttp "github.com/linden-honey/linden-honey-sdk-go/transport/http"
 )
 
-func NewHTTPHandler(endpoint endpoint.Endpoint, logger log.Logger) http.Handler {
-	opts := []httptransport.ServerOption{
-		httptransport.ServerErrorHandler(transport.NewLogErrorHandler(logger)),
-	}
-
-	return httptransport.NewServer(
-		endpoint,
-		decodeHTTPRequest,
-		encodeHTTPResponse,
-		opts...,
-	)
+// HTTPResponse represents an HTTP response object
+type HTTPResponse struct {
+	Status      string `json:"status"`
+	Description string `json:"description,omitempty"`
 }
 
-func decodeHTTPRequest(_ context.Context, _ *http.Request) (interface{}, error) {
-	return Request{}, nil
+// NewHTTPHandler returns a new instance of http.Handler
+func NewHTTPHandler(svc Service) http.Handler {
+	return makeHTTPHandlerFunc(svc)
 }
 
-func encodeHTTPResponse(ctx context.Context, w http.ResponseWriter, response interface{}) error {
-	res := response.(Response)
-	httptransport.SetContentType("application/json")(ctx, w)
-	if err := httptransport.EncodeJSONResponse(ctx, w, res); err != nil {
-		return fmt.Errorf("failed to encode respose: %w", err)
-	}
+func makeHTTPHandlerFunc(svc Service) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if err := svc.Check(r.Context()); err != nil {
+			_ = sdkhttp.EncodeJSONResponse(
+				w,
+				http.StatusServiceUnavailable,
+				HTTPResponse{
+					Status:      StatusDown,
+					Description: err.Error(),
+				},
+			)
 
-	return nil
+			return
+		}
+
+		_ = sdkhttp.EncodeJSONResponse(
+			w,
+			http.StatusOK,
+			HTTPResponse{
+				Status: StatusUp,
+			},
+		)
+	}
 }
