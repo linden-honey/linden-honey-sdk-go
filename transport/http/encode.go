@@ -6,11 +6,11 @@ import (
 )
 
 // EncodeJSONResponse serializes the response as a JSON to the ResponseWriter with appropriate status code
-func EncodeJSONResponse(w http.ResponseWriter, code int, response interface{}) error {
+func EncodeJSONResponse(w http.ResponseWriter, statusCode int, response interface{}) error {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	w.WriteHeader(code)
+	w.WriteHeader(statusCode)
 
-	if code == http.StatusNoContent {
+	if statusCode == http.StatusNoContent {
 		return nil
 	}
 
