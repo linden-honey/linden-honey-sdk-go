@@ -23,25 +23,13 @@ type ErrorResponse struct {
 	Timestamp time.Time `json:"timestamp"`
 	Error     string    `json:"error"`
 	Message   string    `json:"message"`
-	Code      string    `json:"code,omitempty"`
-}
-
-// ErrorWithCode represents an error with code
-type ErrorWithCode interface {
-	error
-	Code() string
 }
 
 // EncodeJSONError converts an error to ErrorResponse and serializes it as JSON to the ResponseWriter
-// with appropriate status code. If an error value is ErrorWithCode, the code will be used when encoding the error.
+// with appropriate status code.
 func EncodeJSONError(w http.ResponseWriter, statusCode int, err error) error {
 	if err == nil {
 		return nil
-	}
-
-	code := ""
-	if err, ok := err.(ErrorWithCode); ok {
-		code = err.Code()
 	}
 
 	return EncodeJSONResponse(
@@ -51,7 +39,6 @@ func EncodeJSONError(w http.ResponseWriter, statusCode int, err error) error {
 			Timestamp: time.Now(),
 			Error:     http.StatusText(statusCode),
 			Message:   err.Error(),
-			Code:      code,
 		},
 	)
 }
