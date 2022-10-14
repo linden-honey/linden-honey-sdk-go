@@ -41,10 +41,10 @@ func (s Sort) Validate() error {
 // Validate a Pageable and returns an error if validation is failed
 func (p Pageable) Validate() error {
 	if p.Limit < 0 {
-		return sdkerrors.NewInvalidValueError("Limit", sdkerrors.ErrNegativeValue)
+		return sdkerrors.NewInvalidValueError("Limit", sdkerrors.ErrNegativeNumber)
 	}
 	if p.Offset < 0 {
-		return sdkerrors.NewInvalidValueError("Offset", sdkerrors.ErrNegativeValue)
+		return sdkerrors.NewInvalidValueError("Offset", sdkerrors.ErrNegativeNumber)
 	}
 	if err := p.Sort.Validate(); err != nil {
 		return sdkerrors.NewInvalidValueError("Sort", err)

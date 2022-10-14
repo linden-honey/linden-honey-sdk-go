@@ -6,8 +6,9 @@ import (
 )
 
 var (
-	ErrEmptyValue    = errors.New("must be non-empty")
-	ErrNegativeValue = errors.New("must be non-negative")
+	ErrEmptyValue        = errors.New("should be non-empty")
+	ErrNegativeNumber    = errors.New("should be non-negative number")
+	ErrNonPositiveNumber = errors.New("should be positive number")
 )
 
 // NewRequiredValueError returns an error about missing required value
