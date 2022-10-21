@@ -6,7 +6,7 @@ import (
 	"github.com/linden-honey/linden-honey-sdk-go/errors"
 )
 
-// Validate a [Config] and returns an [error] if validation is failed.
+// Validate a [Config] and returns an error if validation is failed.
 func (cfg Config) Validate() error {
 	if strings.TrimSpace(cfg.Title) == "" {
 		return errors.NewInvalidValueError("Title", errors.ErrEmptyValue)
