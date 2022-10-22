@@ -13,7 +13,7 @@ type Pageable struct {
 	Sort   Sort `json:"sort"`
 }
 
-// Sort represents a mapping SortBy -> SortOrder.
+// Sort represents a mapping [SortBy] -> [SortOrder].
 type Sort map[SortBy]SortOrder
 
 // SortBy represents a type for defining a sort field.

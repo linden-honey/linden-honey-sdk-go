@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-// New returns a new instance of [http.Handler] with SwaggerUI or an error.
+// New returns a new instance of [http.Handler] with the SwaggerUI or an error.
 func New(opts ...ConfigOption) (http.Handler, error) {
 	cfg := &Config{
 		Title:           DefaultTitle,

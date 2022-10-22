@@ -19,14 +19,14 @@ func EncodeJSONResponse(w http.ResponseWriter, statusCode int, response interfac
 	return json.NewEncoder(w).Encode(response)
 }
 
-// ErrorResponse represents the basic error response
+// ErrorResponse represents the basic error response.
 type ErrorResponse struct {
 	Timestamp time.Time `json:"timestamp"`
 	Error     string    `json:"error"`
 	Message   string    `json:"message"`
 }
 
-// EncodeJSONError converts an error to ErrorResponse and serializes it as JSON to the ResponseWriter 
+// EncodeJSONError converts an error to [ErrorResponse] and serializes it as JSON to the ResponseWriter
 // with appropriate status code.
 func EncodeJSONError(w http.ResponseWriter, statusCode int, err error) error {
 	if err == nil {

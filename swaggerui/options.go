@@ -1,6 +1,6 @@
 package swaggerui
 
-// WithTitle sets the title for the SwaggerUI.
+// WithTitle sets the title for the SwaggerUI [Config].
 func WithTitle(title string) ConfigOption {
 	return func(cfg *Config) {
 		cfg.Title = title
