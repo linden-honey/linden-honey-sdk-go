@@ -4,16 +4,16 @@ import (
 	"context"
 )
 
-// NopService represents no-op health check service
+// NopService represents no-op health check service.
 type NopService struct {
 }
 
-// NewNopService returns a pointer to a new instance of NopService
+// NewNopService returns a pointer to a new instance of NopService.
 func NewNopService() *NopService {
 	return &NopService{}
 }
 
-// Check checks nothing
+// Check checks nothing.
 func (n *NopService) Check(_ context.Context) error {
 	return nil
 }

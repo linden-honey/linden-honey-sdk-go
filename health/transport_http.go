@@ -6,12 +6,12 @@ import (
 	sdkhttp "github.com/linden-honey/linden-honey-sdk-go/transport/http"
 )
 
-// NewHTTPHandler returns a new instance of http.Handler
+// NewHTTPHandler returns a new instance of http.Handler.
 func NewHTTPHandler(svc Service) http.Handler {
 	return makeHTTPHandlerFunc(svc)
 }
 
-// HTTPResponse represents an HTTP response object
+// HTTPResponse represents an HTTP response object.
 type HTTPResponse struct {
 	Status      string `json:"status"`
 	Description string `json:"description,omitempty"`
