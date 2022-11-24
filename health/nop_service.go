@@ -8,7 +8,7 @@ import (
 type NopService struct {
 }
 
-// NewNopService returns a pointer to a new instance of [NopService].
+// NewNopService returns a pointer to the new instance of [NopService].
 func NewNopService() *NopService {
 	return &NopService{}
 }
