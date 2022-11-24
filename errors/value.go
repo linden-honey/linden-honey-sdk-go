@@ -11,12 +11,12 @@ var (
 	ErrNonPositiveNumber = errors.New("should be positive number")
 )
 
-// NewRequiredValueError returns an error about missing required value.
+// NewRequiredValueError returns an error about missing required value for the given key.
 func NewRequiredValueError(key string) error {
 	return fmt.Errorf("'%s' is required", key)
 }
 
-// NewInvalidValueError returns an invalid value error.
-func NewInvalidValueError(key string, err error) error {
-	return fmt.Errorf("'%s' has invalid value: %w", key, err)
+// NewInvalidValueError returns an invalid value error for the given key with the reason.
+func NewInvalidValueError(key string, reason error) error {
+	return fmt.Errorf("'%s' has invalid value: %w", key, reason)
 }
