@@ -1,2 +1,2 @@
-// Package middleware provides abstractions for working with chainable behavior modifiers.
+// Package middleware provides abstractions and utils for working with chainable behavior modifiers.
 package middleware
