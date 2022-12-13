@@ -11,7 +11,7 @@ func NewHTTPHandler(svc Service) http.Handler {
 	return makeHTTPHandlerFunc(svc)
 }
 
-// HTTPResponse represents an HTTP response object.
+// HTTPResponse is an HTTP response.
 type HTTPResponse struct {
 	Status      string `json:"status"`
 	Description string `json:"description,omitempty"`

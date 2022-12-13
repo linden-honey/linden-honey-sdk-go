@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// EncodeJSONResponse serializes the response object as a JSON to the ResponseWriter
+// EncodeJSONResponse serializes the provided response as a JSON to the ResponseWriter
 // with appropriate status code.
 func EncodeJSONResponse(w http.ResponseWriter, statusCode int, response interface{}) error {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
@@ -19,14 +19,14 @@ func EncodeJSONResponse(w http.ResponseWriter, statusCode int, response interfac
 	return json.NewEncoder(w).Encode(response)
 }
 
-// ErrorResponse represents the basic error response.
+// ErrorResponse is the basic error response.
 type ErrorResponse struct {
 	Timestamp time.Time `json:"timestamp"`
 	Error     string    `json:"error"`
 	Message   string    `json:"message"`
 }
 
-// EncodeJSONError converts an error to [ErrorResponse] and serializes it as JSON to the ResponseWriter
+// EncodeJSONError converts an error to the [ErrorResponse] and serializes it as a JSON to the [http.ResponseWriter]
 // with appropriate status code.
 func EncodeJSONError(w http.ResponseWriter, statusCode int, err error) error {
 	if err == nil {

@@ -1,6 +1,6 @@
 package middleware
 
-// Middleware represents a chainable behavior modifier.
+// Middleware is a chainable behavior modifier.
 type Middleware[T any] func(next T) T
 
 // Compose is a helper function for composing [Middleware].

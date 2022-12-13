@@ -49,7 +49,7 @@ func New(opts ...ConfigOption) (http.Handler, error) {
 	}), nil
 }
 
-// Config represents the SwaggerUI configuration.
+// Config is the SwaggerUI configuration.
 type Config struct {
 	Title   string
 	SpecURL string

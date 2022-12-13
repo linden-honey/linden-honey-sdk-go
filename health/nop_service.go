@@ -4,7 +4,7 @@ import (
 	"context"
 )
 
-// NopService represents no-op health check service implementation.
+// NopService is no operation health check [Service] implementation.
 type NopService struct {
 }
 
