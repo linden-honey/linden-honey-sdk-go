@@ -19,7 +19,7 @@ func TestNewRequiredValueError(t *testing.T) {
 			args: args{
 				key: "Title",
 			},
-			want: "'Title' is required",
+			want: "\"Title\" is required",
 		},
 	}
 	for _, tt := range tests {
@@ -47,7 +47,7 @@ func TestNewInvalidValueError(t *testing.T) {
 				key: "Title",
 				err: errors.New("title should be in camelcase"),
 			},
-			want: "'Title' has invalid value: title should be in camelcase",
+			want: "\"Title\" is invalid: title should be in camelcase",
 		},
 	}
 	for _, tt := range tests {
